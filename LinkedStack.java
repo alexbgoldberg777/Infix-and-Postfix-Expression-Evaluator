@@ -1,21 +1,19 @@
 package stack;
 
 /**
- * A {@link LinkedStack} is a generic stack that is implemented using a Linked
- * List structure to allow for unbounded size.
+* This data structure is a slight modification to a standard stack that is implemented with
+* a linked list to allow for infinite size.
  */
 public class LinkedStack<T> {
 
-	// TODO: define class variables here
 	public LLNode<T> top;
 	int size;
 
 	/**
-	 * Remove and return the top element on this stack. If stack is empty, return
-	 * null (instead of throw exception)
+	 * Removes the top element of the stack and returns it, returning null
+	 * if there are no elements in the stack.
 	 */
 	public T pop() {
-		// TODO
 		if (!isEmpty()) {
 			T element = top.info;
 			top = top.link;
@@ -26,11 +24,10 @@ public class LinkedStack<T> {
 	}
 
 	/**
-	 * Return the top element of this stack (do not remove the top element). If
-	 * stack is empty, return null (instead of throw exception)
+	 * Returns the top element of the stack without removing it, returning null
+	 * if there are no elements in the stack.
 	 */
 	public T top() {
-		// TODO
 		if (!isEmpty()) {
 			return top.info;
 		}
@@ -38,10 +35,9 @@ public class LinkedStack<T> {
 	}
 
 	/**
-	 * Return true if the stack is empty and false otherwise.
+	 * Returns true if the stack has no elements, and false otherwise.
 	 */
 	public boolean isEmpty() {
-		// TODO
 		if (top == null) {
 			return true;
 		}
@@ -49,18 +45,16 @@ public class LinkedStack<T> {
 	}
 
 	/**
-	 * Return the number of elements in this stack.
+	 * Returns the number of elements in the stack.
 	 */
 	public int size() {
-		// TODO
 		return size;
 	}
 
 	/**
-	 * Pushes a new element to the top of this stack.
+	* Adds a new element to the top of the stack and updates its size.
 	 */
 	public void push(T elem) {
-		// TODO
 		LLNode<T> newNode = new LLNode<T>(elem);
 		newNode.link = top;
 		top = newNode;
