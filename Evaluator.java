@@ -1,12 +1,10 @@
 package evaluator;
 
-/**
- * An Integer Evaluator class.
- */
+/** This base class is extended by the infix and postfix evalutors. */
 public abstract class Evaluator {
 
-  /** Check if a given token is a valid integer operand.
-   *  Return true if it is, false otherwise
+  /** This method checks if a given string is an operand or not.
+   *  It is used to check a character in the evaluators' input string.
    */
   protected static boolean isOperand(String token) {
     try {
@@ -17,7 +15,8 @@ public abstract class Evaluator {
     return true;
   }
 
-  /** Return the precedence / priority of each operator. */
+  /** This method returns the precedence of an operator so that the
+  * operations in the input expression are solved in order. */
   protected static int precedence(String op) {
     int priority = 1;
     if (op.equals("<") || op.equals(">") || op.equals("<=") || op.equals(">=") || op.equals("==") || op.equals("!=")) {
@@ -39,6 +38,6 @@ public abstract class Evaluator {
     return 0;
   }
 
-  public abstract Integer evaluate(String expr) throws Exception;
+  public abstract Integer evaluate(String expr) throws Exception; //extended accordingly to serve each individual evaluator's purpose
 
 }
