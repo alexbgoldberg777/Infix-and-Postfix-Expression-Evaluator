@@ -4,11 +4,14 @@ import parser.ArithParser;
 import stack.LinkedStack;
 
 public class InfixEvaluator extends Evaluator {
-
+		
+	/**
+	* These class variables denote the stacks of operators and operands (numbers)
+	* that are created for the evaluation.
+	*/
 	private LinkedStack<String> operators = new LinkedStack<String>();
 	private LinkedStack<Integer> operands = new LinkedStack<Integer>();
 
-	/** return stack object (for testing purpose). */
 	public LinkedStack<String> getOperatorStack() {
 		return operators;
 	}
@@ -18,14 +21,11 @@ public class InfixEvaluator extends Evaluator {
 	}
 
 	/**
-	 * This method performs one step of evaluation of a infix expression. The input
-	 * is a token. Follow the infix evaluation algorithm to implement this method.
-	 * If the expression is invalid, throw an exception with the corresponding
-	 * exception message.
+	 * This method performs a single step of the evalutation to be used
+	 * in the total evaluation.
 	 */
 	public void evaluate_step(String token) throws Exception {
-		if (isOperand(token)) {
-			// TODO: What do we do if the token is an operand?
+		if (isOperand(token)) { //if the current c
 			operands.push(Integer.parseInt(token));
 		} else {
 			/*
