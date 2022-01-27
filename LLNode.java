@@ -1,15 +1,12 @@
 package stack;
 
-// A generic Linked List Node
+// A standard linked list node class used to implement the LinkedStack version of a stack.
 public class LLNode<T> {
 
-	// The two class variables are both public
 	public T info;
 	public LLNode<T> link;
 
 	/**
-	 * Constructor.
-	 * 
 	 * @throws NullPointerException if {@code info} is {@code null}
 	 */
 	public LLNode(T info) {
