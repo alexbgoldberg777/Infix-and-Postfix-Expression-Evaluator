@@ -5,24 +5,26 @@ import java.util.regex.Pattern;
 
 
 /**
- * An {@code ArithParser} is a parser for arithmetic expressions.
+ * This class is used to parse the input expressions of the evaluators to separate
+ * them into their individual components.
  */
 public class ArithParser {
 
   /**
-   * Parse String.
+   * Parses the input string
    * @param expr expression
    * @return parsed String.
    */
   public static String[] parse(String expr) {
-    /* first pass: scan for number of tokens */
+    // First, the number of tokens, both operators and oprands, is scanned for.
     Pattern pattern = Pattern.compile("-?[0-9]+|[-+*/%?()]|>=|>|==|<=|!=|!");
     Matcher match = pattern.matcher(expr);
     int ntokens = 0;
     while (match.find()) {
       ntokens++;
     }
-    // second pass: store tokens into String array
+    /* Next, each individual token is stored in a string array to be used by the
+    * evaluators */
     match = pattern.matcher(expr);
     String[] tokens = new String[ntokens];
     ntokens = 0;
