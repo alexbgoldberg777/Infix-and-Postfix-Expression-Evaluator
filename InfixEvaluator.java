@@ -25,34 +25,33 @@ public class InfixEvaluator extends Evaluator {
 	 * in the total evaluation.
 	 */
 	public void evaluate_step(String token) throws Exception {
-		if (isOperand(token)) { //if the current c
+		if (isOperand(token)) { //If the current token in the parsed expressionis a number, it immediately gets pushed to its stack
 			operands.push(Integer.parseInt(token));
 		} else {
 			/*
-			 * TODO: What do we do if the token is an operator? If the expression is
-			 * invalid, make sure you throw an exception with the correct message.
-			 * 
-			 * You can call precedence(token) to get the precedence value of an operator.
-			 * It's already defined in the Evaluator class.
+			* If the current token is an operator, it is handled differently for each operator and its priority.
 			 */
-			if (token.equals("(")) {
+			if (token.equals("(")) { //Starting parentheses are immediately pushed.
 				operators.push(token);
 			} else if (((token.equals("!")) || (token.equals("*")) || (token.equals("/")) || (token.equals("+"))
 					|| (token.equals("-")))
 					&& ((operators.isEmpty()) || (precedence(token) > precedence(operators.top())))) {
+				/* 
+				* Operators on numbers are pushed if they are of a higher precedence than the current top
+				* of the operators stack. If they are of lower precedence, the current top must be handled
+				* first.
+				*/
 				operators.push(token);
-			} else if (token.equals(")")) {
+			} else if (token.equals(")")) { //Ending parentheses signal that the current stack must be evaluated until the starting parentheses.
 				while ((operators != null) && (!operators.top().equals("("))) {
 					process_operator();
 				}
-				if ((!operators.top().equals("(")) || (operators.isEmpty())) {
+				if ((!operators.top().equals("(")) || (operators.isEmpty())) { //This exception is triggered if there is a missing open parenthesis.
 					throw new Exception("missing (");
-				} else {
+				} else { //If the opening parenthesis is present, it is then removed.
 					operators.pop();
 				}
-			} else if ((operators.isEmpty()) || (precedence(operators.top()) < precedence(token))) {
-				operators.push(token);
-			} else {
+			} else { //If any operators are left that are of lower precedence than the current top, the current top must be processed first to preserve order.
 				while ((operators.top() != null) && (precedence(token) <= precedence(operators.top()))) {
 					process_operator();
 				}
@@ -60,44 +59,20 @@ public class InfixEvaluator extends Evaluator {
 			}
 		}
 	}
-
-	/**
-	 * This method evaluates an infix expression (defined by expr) and returns the
-	 * evaluation result. It throws an Exception object if the infix expression is
-	 * invalid.
-	 */
-	public Integer evaluate(String expr) throws Exception {
-
-		for (String token : ArithParser.parse(expr)) {
-			evaluate_step(token);
-		}
-
-		/* TODO: what do we do after all tokens have been processed? */
-		while (!operators.isEmpty()) {
-			process_operator();
-		}
-
-		// The operand stack should have exactly one operand after the evaluation is
-		// done
-		if (operands.size() > 1) {
-			throw new Exception("too many operands");
-		} else if (operands.size() < 1) {
-			throw new Exception("too few operands");
-		}
-
-		return operands.pop();
-	}
-
+	
+	/*
+	After the order of steps is found using evaluate step, this method evaluates the results of each individual operation.
+	*/
 	public void process_operator() throws Exception {
 		String operator = operators.pop();
-		if (operator.equals("!")) {
+		if (operator.equals("!")) { //! represents a negative sign in the input expression, and it has the highest precedence.
 			Integer firstOperand = operands.pop();
 			if (firstOperand == null) {
 				throw new Exception("too few operands");
 			}
 			firstOperand = firstOperand * -1;
 			operands.push(firstOperand);
-		} else if ((operator.equals("*")) || (operator.equals("/"))) {
+		} else if ((operator.equals("*")) || (operator.equals("/"))) { //Next, multiplication and division are evaluated as they have the next highest precedence.
 			if (operator.equals("*")) {
 				Integer firstOperand = operands.pop();
 				Integer secondOperand = operands.pop();
@@ -118,7 +93,7 @@ public class InfixEvaluator extends Evaluator {
 				Integer answer = secondOperand / firstOperand;
 				operands.push(answer);
 			}
-		} else if ((operator.equals("-")) || (operator.equals("+"))) {
+		} else if ((operator.equals("-")) || (operator.equals("+"))) { //Addition and subtraction are evaluated last with the lowest precedence.
 			if (operator.equals("-")) {
 				Integer firstOperand = operands.pop();
 				Integer secondOperand = operands.pop();
@@ -137,13 +112,37 @@ public class InfixEvaluator extends Evaluator {
 				Integer answer = secondOperand + firstOperand;
 				operands.push(answer);
 			}
-		} else if (!operator.contentEquals("(")) {
-			throw new Exception("invalid operator");
+		} else if (!operator.contentEquals("(")) { //If a starting parenthesis was never met with an ending one in an invalid expression,
+			throw new Exception("invalid operator"); //an exception is thrown.
 		}
 	}
 
+	/**
+	 * This method evaluates the entire expression using multiple calls of evaluate_step and process_operator.
+	 */
+	public Integer evaluate(String expr) throws Exception {
+
+		for (String token : ArithParser.parse(expr)) { //The expression is parsed and its order is decided.
+			evaluate_step(token);
+		}
+
+		while (!operators.isEmpty()) { //After all tokens have been properly ordered, the individual operations are performed.
+			process_operator();
+		}
+
+		//After the expression is fully evaluated, the last remaining operand is the final answer.
+		if (operands.size() > 1) {
+			throw new Exception("too many operands");
+		} else if (operands.size() < 1) {
+			throw new Exception("too few operands");
+		}
+
+		return operands.pop();
+	}
+
+	//This main method can be used to test and evaluate an example expression by typing an infix expression between the quotes.
 	public static void main(String[] args) throws Exception {
-		System.out.println(new InfixEvaluator().evaluate("5+(5+2*(5+9))/!8"));
+		System.out.println(new InfixEvaluator().evaluate(""));
 	}
 
 }
