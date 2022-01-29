@@ -5,29 +5,24 @@ import stack.LinkedStack;
 
 public class PostfixEvaluator extends Evaluator {
 
-	private LinkedStack<Integer> stack = new LinkedStack<Integer>();
-
-	/** return stack object (for testing purpose). */
+	private LinkedStack<Integer> stack = new LinkedStack<Integer>(); //This stack holds all the operands in the expression.
+	
 	public LinkedStack<Integer> getStack() {
 		return stack;
 	}
 
 	/**
-	 * This method performs one step of evaluation of a postfix expression. The
-	 * input is a token. Follow the postfix evaluation algorithm to implement this
-	 * method. If the expression is invalid, throw an exception with the
-	 * corresponding exception message.
+	 * This method evaluates a single step of the input expression.
 	 */
 	public void evaluate_step(String token) throws Exception {
-		if (isOperand(token)) {
-			// TODO: What do we do if the token is an operand?
+		if (isOperand(token)) { //If the current token in the parsed expression is a number, it is pushed into the stack member.
 			stack.push(Integer.parseInt(token));
 		} else {
 			/*
-			 * TODO: What do we do if the token is an operator? If the expression is
-			 * invalid, make sure you throw an exception with the correct message
+			 * If the current token is an operator, its operation is performed on the next operand(s) in the stack.
+			 * Each type of operator is handled in order of which is pushed first as is standard in postfix expressions.
 			 */
-			if (token.equals("!")) {
+			if (token.equals("!")) { //! is used to represent a negative sign in the input expression.
 				Integer firstOperand = stack.pop();
 				if (firstOperand == null) {
 					throw new Exception("too few operands");
@@ -75,15 +70,13 @@ public class PostfixEvaluator extends Evaluator {
 	}
 
 	/**
-	 * This method evaluates a postfix expression (defined by expr) and returns the
-	 * evaluation result. It throws an Exception if the postfix expression is
-	 * invalid.
+	 * This method uses evaluate_step to evaluate an entire postfix-notation expression.
 	 */
 	public Integer evaluate(String expr) throws Exception {
-		for (String token : ArithParser.parse(expr)) {
+		for (String token : ArithParser.parse(expr)) { //All individual operations in the parsed input expression are handled one at a time.
 			evaluate_step(token);
 		}
-		// The stack should have exactly one operand after evaluation is done
+		// After evaluation, there should be a single operand left, which will be the result of evaluating the entire expression.
 		if (stack.size() > 1) {
 			throw new Exception("too many operands");
 		} else if (stack.size() < 1) {
@@ -92,6 +85,7 @@ public class PostfixEvaluator extends Evaluator {
 		return stack.pop();
 	}
 
+	// This main method can be used for testing by typing a postfix expression between the parentheses.
 	public static void main(String[] args) throws Exception {
 		System.out.println(new PostfixEvaluator().evaluate("50 25 ! / 3 +"));
 	}
