@@ -7,7 +7,7 @@ public class LLNode<T> {
 	public LLNode<T> link;
 
 	/**
-	 * @throws NullPointerException if {@code info} is {@code null}
+	 * @throws NullPointerException if the info is null
 	 */
 	public LLNode(T info) {
 		if (info == null) {
