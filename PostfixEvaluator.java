@@ -85,7 +85,7 @@ public class PostfixEvaluator extends Evaluator {
 		return stack.pop();
 	}
 
-	// This main method can be used for testing by typing a postfix expression between the parentheses.
+	// This main method can be used for testing by typing a postfix expression between the quotes.
 	public static void main(String[] args) throws Exception {
 		System.out.println(new PostfixEvaluator().evaluate("50 25 ! / 3 +"));
 	}
