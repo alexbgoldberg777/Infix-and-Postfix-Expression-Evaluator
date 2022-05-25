@@ -3,7 +3,7 @@ package evaluator;
 import parser.ArithmeticParser;
 import stack.LLStack;
 
-public class InfixEvaluator extends Evaluator {
+public class Infix_Expression_Solver extends Evaluator {
 		
 	/**
 	* These class variables denote the stacks of operators and operands (numbers)
@@ -142,7 +142,7 @@ public class InfixEvaluator extends Evaluator {
 
 	//This main method can be used to test and evaluate an example expression by typing an infix expression between the quotes.
 	public static void main(String[] args) throws Exception {
-		System.out.println(new InfixEvaluator().evaluate(""));
+		System.out.println(new Infix_Expression_Solver().evaluate(""));
 	}
 
 }
