@@ -4,7 +4,7 @@ package stack;
 * This data structure is a slight modification to a standard stack that is implemented with
 * a linked list to allow for infinite size.
  */
-public class LinkedStack<T> {
+public class LLStack<T> {
 
 	public LLNode<T> top;
 	int size;
