@@ -70,7 +70,7 @@ public class PostfixEvaluator extends Evaluator {
 	}
 
 	/**
-	 * This method uses evaluate_step to evaluate an entire postfix-notation expression.
+	 * This method uses single_step to evaluate an entire postfix-notation expression.
 	 */
 	public Integer evaluate(String expr) throws Exception {
 		for (String token : ArithmeticParser.parseExpression(expr)) { //All individual operations in the parsed input expression are handled one at a time.
