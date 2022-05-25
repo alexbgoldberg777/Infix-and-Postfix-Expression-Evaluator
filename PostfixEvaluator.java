@@ -1,13 +1,13 @@
 package evaluator;
 
 import parser.ArithmeticParser;
-import stack.LinkedStack;
+import stack.LLStack;
 
 public class PostfixEvaluator extends Evaluator {
 
-	private LinkedStack<Integer> stack = new LinkedStack<Integer>(); //This stack holds all the operands in the expression.
+	private LLStack<Integer> stack = new LLStack<Integer>(); //This stack holds all the operands in the expression.
 	
-	public LinkedStack<Integer> getStack() {
+	public LLStack<Integer> getStack() {
 		return stack;
 	}
 
@@ -73,7 +73,7 @@ public class PostfixEvaluator extends Evaluator {
 	 * This method uses evaluate_step to evaluate an entire postfix-notation expression.
 	 */
 	public Integer evaluate(String expr) throws Exception {
-		for (String token : ArithParser.parseExpression(expr)) { //All individual operations in the parsed input expression are handled one at a time.
+		for (String token : ArithmeticParser.parseExpression(expr)) { //All individual operations in the parsed input expression are handled one at a time.
 			evaluate_step(token);
 		}
 		// After evaluation, there should be a single operand left, which will be the result of evaluating the entire expression.
