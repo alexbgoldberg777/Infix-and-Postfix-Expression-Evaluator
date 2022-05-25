@@ -4,7 +4,7 @@ Given an expression in infix or postfix notation, this program can evaluate that
 
 **Dependencies**
 
-ArithParser.java: java.util.regex.Matcher, java.util.regex.Pattern \
+ArithmeticParser.java: java.util.regex.Matcher, java.util.regex.Pattern \
 LLNode.java: N/A \
 LinkedStack.java: LLNode.java \
 Evaluator.java: N/A \
