@@ -8,14 +8,14 @@ import java.util.regex.Pattern;
  * This class is used to parse the input expressions of the evaluators to separate
  * them into their individual components.
  */
-public class ArithParser {
+public class ArithmeticParser {
 
   /**
    * Parses the input string
    * @param expr expression
    * @return parsed String.
    */
-  public static String[] parse(String expr) {
+  public static String[] parseExpression(String expr) {
     // First, the number of tokens, both operators and oprands, is scanned for.
     Pattern pattern = Pattern.compile("-?[0-9]+|[-+*/%?()]|>=|>|==|<=|!=|!");
     Matcher match = pattern.matcher(expr);
