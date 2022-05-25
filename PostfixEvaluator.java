@@ -14,7 +14,7 @@ public class PostfixEvaluator extends Evaluator {
 	/**
 	 * This method evaluates a single step of the input expression.
 	 */
-	public void evaluate_step(String token) throws Exception {
+	public void single_step(String token) throws Exception {
 		if (isOperand(token)) { //If the current token in the parsed expression is a number, it is pushed into the stack member.
 			stack.push(Integer.parseInt(token));
 		} else {
@@ -74,7 +74,7 @@ public class PostfixEvaluator extends Evaluator {
 	 */
 	public Integer evaluate(String expr) throws Exception {
 		for (String token : ArithmeticParser.parseExpression(expr)) { //All individual operations in the parsed input expression are handled one at a time.
-			evaluate_step(token);
+			single_step(token);
 		}
 		// After evaluation, there should be a single operand left, which will be the result of evaluating the entire expression.
 		if (stack.size() > 1) {
