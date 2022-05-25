@@ -24,7 +24,7 @@ public class InfixEvaluator extends Evaluator {
 	 * This method performs a single step of the evalutation to be used
 	 * in the total evaluation.
 	 */
-	public void evaluate_step(String token) throws Exception {
+	public void single_step(String token) throws Exception {
 		if (isOperand(token)) { //If the current token in the parsed expressionis a number, it immediately gets pushed to its stack
 			operands.push(Integer.parseInt(token));
 		} else {
@@ -61,7 +61,7 @@ public class InfixEvaluator extends Evaluator {
 	}
 	
 	/*
-	After the order of steps is found using evaluate step, this method evaluates the results of each individual operation.
+	After the order of steps is found using single_step, this method evaluates the results of each individual operation.
 	*/
 	public void process_operator() throws Exception {
 		String operator = operators.pop();
@@ -118,12 +118,12 @@ public class InfixEvaluator extends Evaluator {
 	}
 
 	/**
-	 * This method evaluates the entire expression using multiple calls of evaluate_step and process_operator.
+	 * This method evaluates the entire expression using multiple calls of single_step and process_operator.
 	 */
 	public Integer evaluate(String expr) throws Exception {
 
 		for (String token : ArithmeticParser.parseExpression(expr)) { //The expression is parsed and its order is decided.
-			evaluate_step(token);
+			single_step(token);
 		}
 
 		while (!operators.isEmpty()) { //After all tokens have been properly ordered, the individual operations are performed.
