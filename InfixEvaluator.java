@@ -1,6 +1,6 @@
 package evaluator;
 
-import parser.ArithParser;
+import parser.ArithmeticParser;
 import stack.LinkedStack;
 
 public class InfixEvaluator extends Evaluator {
@@ -122,7 +122,7 @@ public class InfixEvaluator extends Evaluator {
 	 */
 	public Integer evaluate(String expr) throws Exception {
 
-		for (String token : ArithParser.parse(expr)) { //The expression is parsed and its order is decided.
+		for (String token : ArithParser.parseExpression(expr)) { //The expression is parsed and its order is decided.
 			evaluate_step(token);
 		}
 
