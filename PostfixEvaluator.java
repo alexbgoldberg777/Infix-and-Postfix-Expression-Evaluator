@@ -1,6 +1,6 @@
 package evaluator;
 
-import parser.ArithParser;
+import parser.ArithmeticParser;
 import stack.LinkedStack;
 
 public class PostfixEvaluator extends Evaluator {
@@ -73,7 +73,7 @@ public class PostfixEvaluator extends Evaluator {
 	 * This method uses evaluate_step to evaluate an entire postfix-notation expression.
 	 */
 	public Integer evaluate(String expr) throws Exception {
-		for (String token : ArithParser.parse(expr)) { //All individual operations in the parsed input expression are handled one at a time.
+		for (String token : ArithParser.parseExpression(expr)) { //All individual operations in the parsed input expression are handled one at a time.
 			evaluate_step(token);
 		}
 		// After evaluation, there should be a single operand left, which will be the result of evaluating the entire expression.
