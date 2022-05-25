@@ -1,7 +1,7 @@
 package evaluator;
 
 import parser.ArithmeticParser;
-import stack.LinkedStack;
+import stack.LLStack;
 
 public class InfixEvaluator extends Evaluator {
 		
@@ -9,14 +9,14 @@ public class InfixEvaluator extends Evaluator {
 	* These class variables denote the stacks of operators and operands (numbers)
 	* that are created for the evaluation.
 	*/
-	private LinkedStack<String> operators = new LinkedStack<String>();
-	private LinkedStack<Integer> operands = new LinkedStack<Integer>();
+	private LLStack<String> operators = new LLStack<String>();
+	private LLStack<Integer> operands = new LLStack<Integer>();
 
-	public LinkedStack<String> getOperatorStack() {
+	public LLStack<String> getOperatorStack() {
 		return operators;
 	}
 
-	public LinkedStack<Integer> getOperandStack() {
+	public LLStack<Integer> getOperandStack() {
 		return operands;
 	}
 
@@ -122,7 +122,7 @@ public class InfixEvaluator extends Evaluator {
 	 */
 	public Integer evaluate(String expr) throws Exception {
 
-		for (String token : ArithParser.parseExpression(expr)) { //The expression is parsed and its order is decided.
+		for (String token : ArithmeticParser.parseExpression(expr)) { //The expression is parsed and its order is decided.
 			evaluate_step(token);
 		}
 
