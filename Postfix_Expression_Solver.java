@@ -3,7 +3,7 @@ package evaluator;
 import parser.ArithmeticParser;
 import stack.LLStack;
 
-public class PostfixEvaluator extends Evaluator {
+public class Postfix_Expression_Solver extends Evaluator {
 
 	private LLStack<Integer> stack = new LLStack<Integer>(); //This stack holds all the operands in the expression.
 	
@@ -87,6 +87,6 @@ public class PostfixEvaluator extends Evaluator {
 
 	// This main method can be used for testing by typing a postfix expression between the quotes.
 	public static void main(String[] args) throws Exception {
-		System.out.println(new PostfixEvaluator().evaluate("50 25 ! / 3 +"));
+		System.out.println(new Postfix_Expression_Solver().evaluate("50 25 ! / 3 +"));
 	}
 }
